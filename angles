@@ -1,0 +1,35 @@
+
+
+# Write a function that returns the average angle between two given points on a circle. 
+# The input function must take two values of the angle and direction of rotation (clockwise and counterclockwise). 
+# If the direction is not specified, then output the least distant from the two points average angle (not to be confused with the smallest).
+
+
+
+def angles(a, b, rotation=None):
+    a=a%360 #
+    b=b%360 #
+    r1_a_B_or_r2_A_b =  int(a+(b-a)/2) # the point on the circle between the corners in the direction "right=1", where "a" is less than the value "B" OR under the direction "left=2", where the value of "A" more "b"
+    r1_A_b_or_r2_a_B = int((a+(360-a+b)/2)%360) # the point on the circle between the corners in the direction "right=1", where "A" is greater than the value "b" OR under the direction "left=2", where the value "a" is less than the value "B"
+    
+    if a==b:
+        return 'the angles cant be equal!'
+    if rotation == 1 and a<b or rotation == 2 and a>b:
+        return r1_a_B_or_r2_A_b
+    if rotation == None:
+        if a or b in range(r1_a_B_or_r2_A_b-90, (r1_a_B_or_r2_A_b+90)%360):
+            print('r1_a_B_or_r2_A_b =', r1_a_B_or_r2_A_b)
+            return r1_a_B_or_r2_A_b
+        return r1_A_b_or_r2_a_B
+    else: return r1_A_b_or_r2_a_B
+
+
+print('test-45',angles(0, 90, 1))
+print('test-225',angles(0, 90, 2))
+print('test-180',angles(10, 350, 1))
+print('test-270',angles(260, 280, 1))
+print('test-90',angles(260, 280, 2))
+print('test-270 without rotatoin',angles(260, 280))
+print('test-45 without rotatoin',angles(0, 90))
+print('test-0 without rotatoin',angles(350, 10))
+print('test-0 without rotatoin',angles(10, 350))
